@@ -1,0 +1,26 @@
+# Base
+pytz==2021.1
+python-slugify==4.0.1
+Pillow==8.1.0
+psycopg2==2.8.6
+
+# Django
+Django==3.1.6
+
+# Environment
+django-environ==0.4.5
+
+# JWT
+PyJWT==2.0.1
+
+# Security
+argon2-cffi==20.1.0
+
+# Static
+whitenoise==5.2.0
+
+# Celery
+redis==3.5.3
+celery==4.4.7
+django-redis==4.12.1
+flower==0.9.7
