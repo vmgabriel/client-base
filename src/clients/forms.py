@@ -4,7 +4,7 @@
 from django import forms
 
 # Models
-from django.contrib.auth.models import User
+from src.clients.models import User
 from src.clients.models import Profile
 
 
@@ -38,6 +38,14 @@ class SignupForm(forms.Form):
         if username_taken:
             raise forms.ValidationError('Username is already in use.')
         return username
+
+    def clean_email(self):
+        """Email must be unique"""
+        email = self.cleaned_data['email']
+        email_taken = User.objects.filter(email=email).exists()
+        if email_taken:
+            raise forms.ValidationError('Email is already in use.')
+        return email
 
     def clean(self):
         """Verify password confirmation match."""

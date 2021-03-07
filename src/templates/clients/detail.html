@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head_content %}
-<title>@{{ user.username }} | Check</title>
+<title>@{{ client.username }} | Check</title>
 {% endblock %}
 
 {% block container %}
@@ -10,20 +10,14 @@
         <div class="row">
 
             <div class="col-sm-4 d-flex justify-content-center">
-                <img
-                    src="{{ user.profile.picture.url }}"
-                    alt="@{{ user.username}}"
-                    class="rounded-circle"
-                    width="150px"
-                />
             </div>
 
             <div class="col-sm-8">
                 <h2 style="font-weight: 100;">
-                    {{ user.username }}
+                    {{ client.username }}
                     {% if user == request.user %}
                         <a
-                            href="{% url "users:update" %}"
+                            href="#"
                             class="ml-5 btn btn-sm btn-outline-info"
                         >
                             Edit profile
@@ -40,18 +34,18 @@
 
                 <div class="row mt-2" style="font-size: 1.2em">
                     <div class="col-sm-4">
-                        <b>{{ user.profile.posts_count }}785</b> posts
+                        <b>{{ client.profile.posts_count }}785</b> posts
                     </div>
                     <div class="col-sm-4">
-                        <b>{{ user.profile.followers }}1,401</b> followers
+                        <b>{{ client.profile.followers }}1,401</b> followers
                     </div>
                     <div class="col-sm-4">
-                        <b>{{ user.profile.following }}491</b> following
+                        <b>{{ client.profile.following }}491</b> following
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-sm-12">
-                        <p>{{ user.profile.biography }}</p>
+                        <p>{{ client.profile.biography }}</p>
                     </div>
                 </div>
             </div>

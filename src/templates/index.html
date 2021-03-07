@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+<title>Control Client</title>
+
+<style>
+ .control {
+   max-width: 100%;
+   height: 445px;
+   background-image: url("{% static 'imgs/morfeo.jpeg' %}");
+   justify-content: center;
+   display: flex;
+   background-position: 50% 50%;
+ }
+</style>
+{% endblock%}
+
+{% block container %}
+<div class="container control">
+  <div class="row align-items-end">
+    <div class="col">
+      <h1 class="display-1 text-center main-title">
+        {% if user and user.is_authenticated %}
+        You're a Slave {{ user.username|title }}
+        {% else %}
+        You're Slave Neo
+        {% endif %}
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1 class="text-center">Choose The Pills</h1>
+  <div class="row">
+    <a href="/red" class="col align-self-center" style="display: flex; justify-content: center;">
+      <i class="fas fa-pills text-center" style="font-size: 120px; color: red"></i>
+    </a>
+    <a href="/blue" class="col align-self-center" style="display: flex; justify-content: center;">
+      <i class="fas fa-pills text-center" style="font-size: 120px; color: blue"></i>
+    </a>
+  </div>
+</div>
+{% endblock%}

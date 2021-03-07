@@ -7,6 +7,7 @@ import environ
 
 # Dirs
 ROOT_DIR = environ.Path(__file__) - 3
+print('root-dir - ', ROOT_DIR)
 APPS_DIR = ROOT_DIR.path('src')
 
 env = environ.Env()
@@ -18,7 +19,6 @@ SECRET_KEY = 'cs7n8ojdh+-nyq($l-i-yi(2y#0exx1mzf%==@ma+1d5k833-^'
 
 # Base
 DEBUG = env.bool('DJANGO_DEBUG', False)
-
 
 # Language and timezone
 TIME_ZONE = 'America/Mexico_City'
@@ -42,6 +42,8 @@ ROOT_URLCONF = 'config.urls'
 # WSGI
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# Users & Authentication
+AUTH_USER_MODEL = 'clients.User'
 
 # Apps
 DJANGO_APPS = [
@@ -56,7 +58,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
-    'src.clients',
+    'src.clients.apps.ClientsAppConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -182,6 +184,6 @@ CELERYD_TASK_TIME_LIMIT = 5 * 60
 CELERYD_TASK_SOFT_TIME_LIMIT = 60
 
 # URL to Redirect
-LOGIN_URL = '/users/login/'
+LOGIN_URL = '/clients/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = LOGIN_URL

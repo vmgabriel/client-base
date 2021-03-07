@@ -4,6 +4,7 @@
 from django.apps import AppConfig
 
 
-class ClientsConfig(AppConfig):
+class ClientsAppConfig(AppConfig):
     """Client Config for App"""
-    name = 'clients'
+    name = 'src.clients'
+    verbose_name = 'Clients'

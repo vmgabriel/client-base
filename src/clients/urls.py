@@ -8,8 +8,12 @@ from src.clients import views
 
 
 urlpatterns = [
-
     # Management
+    path(
+        route='',
+        view=views.ClientListView.as_view(),
+        name='list'
+    ),
     path(
         route='login/',
         view=views.LoginView.as_view(),
@@ -25,11 +29,6 @@ urlpatterns = [
         view=views.SignupView.as_view(),
         name='signup'
     ),
-    # path(
-    #     route='me/profile/',
-    #     view=views.UpdateProfileView.as_view(),
-    #     name='update'
-    # ),
 
     # Posts
     path(
