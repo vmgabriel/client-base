@@ -67,3 +67,37 @@ class SignupForm(forms.Form):
         user = User.objects.create_user(**data)
         profile = Profile(user=user)
         profile.save()
+
+
+class ExtendClientEditForm(forms.Form):
+    """Form Extend"""
+    picture = forms.ImageField(
+    )
+    email = forms.CharField(
+        min_length=6,
+        max_length=70,
+        widget=forms.EmailInput()
+    )
+    phone_number = forms.CharField(
+        min_length=7,
+        max_length=17,
+    )
+    website = forms.CharField(
+        max_length=200,
+    )
+    biography = forms.CharField(
+        max_length=400,
+        widget=forms.TextInput
+    )
+    first_name = forms.CharField(
+        min_length=3,
+        max_length=25,
+    )
+    last_name = forms.CharField(
+        min_length=3,
+        max_length=25,
+    )
+
+    def save(self):
+        """Update the data"""
+        print('data')

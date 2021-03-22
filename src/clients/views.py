@@ -1,15 +1,17 @@
 """Module for views"""
 
 # Libraries
-from django.shortcuts import render
 from django.contrib.auth import views as auth_views
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, FormView, UpdateView
 from django.views.generic.list import ListView
 
 # Forms
-from src.clients.forms import SignupForm
+from src.clients.forms import (
+    SignupForm,
+    ExtendClientEditForm,
+)
 
 # Models Clients and User
 from src.clients.models import (
@@ -20,18 +22,24 @@ from src.clients.models import (
 
 class ClientDetailView(LoginRequiredMixin, DetailView):
     """user detail view."""
-
     template_name = 'clients/detail.html'
     slug_field = 'username'
     slug_url_kwarg = 'username'
     queryset = User.objects.all()
     context_object_name = 'client'
 
-    def get_context_data(self, **kwargs):
-        """Add user's posts to context."""
-        context = super().get_context_data(**kwargs)
-        context['posts'] = []
-        return context
+
+class ClientEditView(LoginRequiredMixin, UpdateView):
+    """Client Edit View"""
+    model = Profile
+    fields = ['website', 'biography', 'phone_number', 'picture']
+    template_name = 'clients/edit.html'
+    success_url = reverse_lazy('clients:list')
+
+    def get_object(self) -> Profile:
+        """Get object for get obj based into User"""
+        user = User.objects.get(username=self.kwargs['username'])
+        return self.model.objects.get(user=user)
 
 
 class LoginView(auth_views.LoginView):
@@ -46,7 +54,6 @@ class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
 
 class SignupView(FormView):
     """Users sign up view."""
-
     template_name = 'clients/signup.html'
     form_class = SignupForm
     success_url = reverse_lazy('clients:login')

@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand">
+    <a href="{% url 'clients:list' %}" class="navbar-brand">
       <img src="{% static "imgs/instagram.png" %}" height="45" class="d-inline-block align-top"/>
     </a>
 
@@ -15,8 +15,12 @@
       <ul class="navbar-nav">
         {% if user and user.is_authenticated %}
         <li class="nav-item" style="padding-top: 8.75px;padding-bottom: 8.75px;">
-          <a href="#">
-            <img src="{% static 'imgs/default-profile.png' %}" height="35"/>
+          <a href="{% url 'clients:detail' user.username %}">
+            {% if user.profile.picture %}
+            <img src="{{ user.profile.picture.url }}" alt="icon user" height="35">
+            {% else %}
+            <img src="{% static 'imgs/default-profile.png' %}" alt="icon user" height="35"/>
+            {% endif %}
           </a>
         </li>
         <li class="nav-item">

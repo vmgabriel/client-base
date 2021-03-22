@@ -30,11 +30,15 @@ urlpatterns = [
         name='signup'
     ),
 
-    # Posts
+    # User
     path(
         route='<str:username>/',
         view=views.ClientDetailView.as_view(),
         name='detail'
+    ),
+    path(
+        route='<str:username>/edit/',
+        view=views.ClientEditView.as_view(),
+        name='edit'
     )
-
 ]

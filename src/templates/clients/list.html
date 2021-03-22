@@ -1,20 +1,60 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head_content %}
-<title>@{{ client.username }} | List Of Users</title>
+<title>@{{ user.username }} | List Of Users</title>
 {% endblock %}
 
 {% block container %}
-<ul>
-  <!-- Iterate over object_list -->
-  {% for object in object_list %}
-  <!-- Display Objects -->
-  <li>{{ object.title }}</li>
-  <li>{{ object.description }}</li>
-  <hr/>
-  <!-- If objet_list is empty  -->
-  {% empty %}
-  <li>No objects yet.</li>
-  {% endfor %}
-</ul>
+<h1>List of Clients</h1>
+<div class="table-responsive">
+  <table class="table table-striped caption-top">
+  <caption>Clients Available: {{object_list.count}}</caption>
+  <thead>
+    <tr>
+      <th scope="col">Picture</th>
+      <th scope="col">Username</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Is Client</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in object_list %}
+    <tr>
+      <th scope="row">
+        <a href="{% url 'clients:detail' object.user.username %}">
+          <img
+            alt="icon user {{object.user.username}}"
+            src="{%if object.picture %}{{ object.picture.url }}{% else %}{% static 'imgs/default-profile.png' %}{% endif %}"
+            height="35"
+          />
+        </a>
+      </th>
+      <td>{{ object.user.username }}</td>
+      <td>{{ object.user.first_name }}</td>
+      <td>{{ object.user.last_name }}</td>
+      <td>
+        {% if client.is_client %}
+        <i class="fas fa-check-circle"></i>
+        {% else %}
+        <i class="fas fa-times-circle"></i>
+        {% endif %}
+      </td>
+      <td>
+        <a href="{% url 'clients:detail' object.user.username %}">
+          <i class="fas fa-eye">
+          </i>
+          {% if user.is_staff or user.is_superuser %}
+          <i class="fas fa-edit">
+          </i>
+          {% endif %}
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+</div>
 {% endblock %}
